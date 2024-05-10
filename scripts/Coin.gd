@@ -7,7 +7,7 @@ var activated = false;
 
 func collect():
 	$AnimationPlayer.play("pickup")
-	GameManager.stopwatch.slow_timer(COIN_TIME_VALUE)
+	LevelManager.stopwatch.slow_timer(COIN_TIME_VALUE)
 
 func respawn():
 	$AnimationPlayer.play("RESET")

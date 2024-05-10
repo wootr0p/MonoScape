@@ -6,7 +6,7 @@ var activated = false;
 func activate():
 	if !activated:
 		activated = true;
-		GameManager.current_checkpoint = self;
+		LevelManager.current_checkpoint = self;
 		$AnimationPlayer.play("activate");
 		print("Checkpoint activated!")
 

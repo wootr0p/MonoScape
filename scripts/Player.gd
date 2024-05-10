@@ -39,8 +39,8 @@ onready var jump_gravity : float = ((-2 * jump_height) / (jump_time_to_peak * ju
 onready var fall_gravity : float = ((-2 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1
 
 func _ready():
-	GameManager.player = self;
-	GameManager.player_start_position = self.position;
+	LevelManager.player = self;
+	LevelManager.player_start_position = self.position;
 
 func _physics_process(delta):
 	
@@ -214,11 +214,11 @@ func _on_Area2D_body_entered(body: Node):
 	if body is KinematicBody2D:
 		# KILL PLAYER
 		die()
-		GameManager.respawn_player_delayed()
+		LevelManager.respawn_player_delayed()
 
 func _on_End_body_entered(body):
-	get_parent().get_node("UI/Stopwatch").stop_timer()
-	GameManager.win_level()
+	get_tree().get_nodes_in_group("UI_Stopwatch")[0].stop_timer()
+	LevelManager.win_level()
 
 func _on_DashReloadTimer_timeout():
 	$Trail.is_active = false

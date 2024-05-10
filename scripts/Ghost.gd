@@ -7,7 +7,7 @@ var ghost_positions = []
 var playback_index = 0
 
 func _ready():
-	GameManager.ghost = self
+	LevelManager.ghost = self
 	
 	ghost_positions_playback = load_from_file()
 	$AnimatedSprite.visible = (ghost_positions_playback.size() > 0)
@@ -44,7 +44,7 @@ func new_record():
 
 func save_to_file(array_to_save):
 	var file = File.new()
-	file.open(GameManager.RECORD_FILENAME, File.WRITE)
+	file.open(LevelManager.RECORD_FILENAME, File.WRITE)
 	
 	# Scrivi ogni elemento dell'array nel file
 	for vector in array_to_save:
@@ -56,8 +56,8 @@ func load_from_file():
 	var array_loaded = []
 	
 	var file = File.new()
-	if file.file_exists(GameManager.RECORD_FILENAME):
-		file.open(GameManager.RECORD_FILENAME, File.READ)
+	if file.file_exists(LevelManager.RECORD_FILENAME):
+		file.open(LevelManager.RECORD_FILENAME, File.READ)
 		
 		while !file.eof_reached():
 			var line = file.get_line()

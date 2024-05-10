@@ -5,7 +5,7 @@ var time : float
 var is_active : bool
 
 func _ready():
-	GameManager.stopwatch = self;
+	LevelManager.stopwatch = self;
 	
 	is_active = true
 	time = 0.0
