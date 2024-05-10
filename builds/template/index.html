@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MonoScape</title>
+        <meta charset="UTF-8">
+		
+		<style>
+		.container {
+			display: flex;
+			justify-content: center; /* center horizontally */
+			align-items: center; /* center vertically */
+		}
+
+		button {
+			position: absolute;
+			top: 50%;
+			padding: 50px;
+			font-size: 24px;
+			transform: translateY(-50%);
+		}
+		</style>
+		
+    </head>
+    <body>
+		<div class="container">
+			<button onclick="startGameFullscreen()" >Play</button>
+		</div>
+		
+        <canvas id="canvas"></canvas>
+        <script src="$GODOT_URL"></script>
+        <script>
+		function startGame() {
+            var engine = new Engine($GODOT_CONFIG);
+			engine.startGame();
+		}
+		function startGameFullscreen() {
+			var elem = document.getElementById("canvas");
+			if (elem.requestFullscreen) {
+				elem.requestFullscreen();
+			} else if (elem.webkitRequestFullscreen) { /* Safari */
+			elem.webkitRequestFullscreen();
+			} else if (elem.msRequestFullscreen) { /* IE11 */
+			elem.msRequestFullscreen();
+			}
+			startGame();
+		}
+        </script>
+    </body>
+</html>

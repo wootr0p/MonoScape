@@ -1,0 +1,118 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/sprites/player.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/jump.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sounds/slide.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/sounds/death.wav" type="AudioStream" id=5]
+[ext_resource path="res://scenes/Trail.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/sprites/player_canDash.png" type="Texture" id=7]
+[ext_resource path="res://assets/sounds/dash.wav" type="AudioStream" id=8]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 4, 8 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": false,
+"name": "Dash_Ready",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": false,
+"name": "Normal",
+"speed": 5.0
+} ]
+
+[sub_resource type="Gradient" id=8]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 3, 7 )
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 1, -59 )
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 6 )
+
+[node name="Jump_Buffer_Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Coyote_Time_Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="Jump_Min_Hold_Time" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+
+[node name="Right_RayCast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 6, 0 )
+
+[node name="Left_RayCast" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( -6, 0 )
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"
+
+[node name="DashSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+bus = "SFX"
+
+[node name="Jump_Sound_Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="SlideSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -24.0
+bus = "SFX"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="Trail" parent="." instance=ExtResource( 6 )]
+
+[node name="DashReloadTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 7 )
+animation = "Normal"
+
+[node name="ParticlesDeath" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 25
+lifetime = 0.3
+one_shot = true
+emission_shape = 2
+emission_rect_extents = Vector2( 4, 8 )
+direction = Vector2( 1, 1 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 90.0
+initial_velocity_random = 0.05
+angular_velocity = 100.0
+scale_amount = 3.0
+color = Color( 0.678431, 0.533333, 0.776471, 1 )
+color_ramp = SubResource( 8 )
+anim_speed = 128.0
+
+[node name="InteractionArea" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource( 9 )
+
+[connection signal="timeout" from="Jump_Buffer_Timer" to="." method="_on_Jump_Buffer_Timer_timeout"]
+[connection signal="timeout" from="Coyote_Time_Timer" to="." method="_on_Coyote_Time_Timer_timeout"]
+[connection signal="timeout" from="Jump_Min_Hold_Time" to="." method="_on_Jump_Min_Hold_Time_timeout"]
+[connection signal="timeout" from="DashReloadTimer" to="." method="_on_DashReloadTimer_timeout"]
