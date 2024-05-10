@@ -23,6 +23,7 @@ var jump_hold := false
 var was_on_floor := false
 var wall_jump_left := false
 var wall_jump_right := false
+var is_dash_on_air := false
 
 var rng = RandomNumberGenerator.new()
 
@@ -86,7 +87,14 @@ func Dash(delta, x_direction, y_direction):
 		$Trail.is_active = true
 		dash_avaiable = false
 		$AnimatedSprite.play("Normal")
-	if is_on_floor() && $DashReloadTimer.is_stopped():
+		is_dash_on_air = !is_on_floor()
+
+	# il dash è disponibile se l'ho eseguito in aria, appena tocco terra
+	if is_dash_on_air && is_on_floor():
+		dash_avaiable = true;
+		$AnimatedSprite.play("Dash_Ready")
+	# altrimenti se sono a terra ed è finito il timer
+	elif is_on_floor() && $DashReloadTimer.is_stopped():
 		dash_avaiable = true;
 		$AnimatedSprite.play("Dash_Ready")
 
