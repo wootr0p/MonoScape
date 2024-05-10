@@ -81,7 +81,7 @@ stream = ExtResource( 5 )
 [node name="Trail" parent="." instance=ExtResource( 6 )]
 
 [node name="DashReloadTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.3
 one_shot = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
