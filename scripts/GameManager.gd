@@ -1,6 +1,6 @@
 extends Node2D
 
-const GAME_VERSION = "0.1.8a"
+const GAME_VERSION = "0.1.8"
 const GAME_VERSION_CLEAR_RECORD = true
 
 const GAME_FILENAME = "user://game.sav"
