@@ -10,7 +10,7 @@ const X_MAX_SPEED := 150
 const WALL_JUMP_SLIPPERY := 0.85
 const WALL_JUMP_MUL := 2
 const WALL_JUMP_BOUNCE_SPEED := 600
-const DASH_SPEED := 1800
+const DASH_SPEED := 500
 
 var is_player_alive = true
 var velocity = Vector2()
@@ -23,6 +23,9 @@ var jump_hold := false
 var was_on_floor := false
 var wall_jump_left := false
 var wall_jump_right := false
+
+var dash_direction
+var is_dashing := false
 var is_dash_on_air := false
 
 var rng = RandomNumberGenerator.new()
@@ -78,23 +81,27 @@ func _physics_process(delta):
 func Dash(delta, x_direction, y_direction):
 	if Input.is_action_just_pressed("ui_cancel") && dash_avaiable:
 		# DASH
+		# di default la direzione è avanti
 		if x_direction == 0 && y_direction == 0:
 			x_direction = 1
-		var v = Vector2(x_direction, y_direction).normalized()
-		velocity = v * DASH_SPEED
-		$DashReloadTimer.start()
+		dash_direction = Vector2(x_direction, y_direction).normalized()
+		is_dash_on_air = !is_on_floor()
+		is_dashing = true
+		$Dash_Duration_Timer.start()
 		$DashSound.playing = true;
 		$Trail.is_active = true
 		dash_avaiable = false
 		$AnimatedSprite.play("Normal")
-		is_dash_on_air = !is_on_floor()
-
+	
+	if is_dashing:
+		velocity = dash_direction * DASH_SPEED
+	
 	# il dash è disponibile se l'ho eseguito in aria, appena tocco terra
 	if is_dash_on_air && is_on_floor():
 		dash_avaiable = true;
 		$AnimatedSprite.play("Dash_Ready")
-	# altrimenti se sono a terra ed è finito il timer
-	elif is_on_floor() && $DashReloadTimer.is_stopped():
+	# altrimenti se sono a terra ed è finito il timer di reload
+	elif is_on_floor() && !is_dashing && $DashReloadTimer.is_stopped():
 		dash_avaiable = true;
 		$AnimatedSprite.play("Dash_Ready")
 
@@ -216,6 +223,10 @@ func _on_End_body_entered(body):
 func _on_DashReloadTimer_timeout():
 	$Trail.is_active = false
 
+func _on_Dash_Duration_Timer_timeout():
+	is_dashing = false
+	$DashReloadTimer.start()
+
 func die():
 	# KILL PLAYER
 	is_player_alive = false
@@ -232,3 +243,5 @@ func respawn():
 	$SlideSound.playing = false;
 	$AnimatedSprite.visible = true
 	$Trail.is_active = false
+
+

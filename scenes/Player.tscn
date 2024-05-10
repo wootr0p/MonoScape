@@ -112,7 +112,12 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource( 9 )
 
+[node name="Dash_Duration_Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="timeout" from="Jump_Buffer_Timer" to="." method="_on_Jump_Buffer_Timer_timeout"]
 [connection signal="timeout" from="Coyote_Time_Timer" to="." method="_on_Coyote_Time_Timer_timeout"]
 [connection signal="timeout" from="Jump_Min_Hold_Time" to="." method="_on_Jump_Min_Hold_Time_timeout"]
 [connection signal="timeout" from="DashReloadTimer" to="." method="_on_DashReloadTimer_timeout"]
+[connection signal="timeout" from="Dash_Duration_Timer" to="." method="_on_Dash_Duration_Timer_timeout"]
