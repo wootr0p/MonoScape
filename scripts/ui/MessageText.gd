@@ -1,5 +1,4 @@
 extends Label
-class_name MessageText
 
 func _ready():
 	LevelManager.connect("respawn_world", self, "on_respawn_world")

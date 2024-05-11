@@ -1,5 +1,4 @@
 extends Area2D
-class_name Coin
 
 const COIN_TIME_VALUE = 2.0;
 

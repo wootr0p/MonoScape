@@ -1,5 +1,4 @@
 extends Line2D
-class_name Trail
 
 export var length = 50
 export var is_active = false

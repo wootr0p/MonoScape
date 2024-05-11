@@ -6,10 +6,10 @@ signal level_complete
 signal level_win
 signal slow_timer
 
-const RECORD_FILENAME = "user://record.dat"
-
 var current_checkpoint : Checkpoint
 
+var level_name = ""
+var ghost_level_save_path = "";
 var is_level_active = false
 
 var player_start_position : Vector2;
@@ -43,14 +43,16 @@ func level_complete():
 func level_win():
 	# NUOVO RECORD
 	emit_signal("level_win")
-	save_json_to_file()
+	GameManager.save_record_to_file(level_name, record_time)
 
 func slow_timer(amount):
 	emit_signal("slow_timer", amount)
 
-func level_init():
+func level_init(lvl_name):
+	level_name = lvl_name
+	ghost_level_save_path = "user://" + level_name + "_ghost.dat"
 	level_clear = false
-	load_json_from_file()
+	GameManager.load_record_from_file(level_name)
 	is_level_active = true;
 
 func level_destroy():
@@ -66,52 +68,3 @@ func _process(_delta):
 
 func _on_Restart_Timer_timeout():
 	respawn(false)
-
-func save_json_to_file():
-	var file = File.new()
-	file.open(GameManager.GAME_SAVE_FILENAME, File.WRITE)
-	
-	var json_data = {
-		"game_version": GameManager.GAME_VERSION,
-		"record_time": record_time
-	}
-	
-	var json_string = JSON.print(json_data)
-	file.store_string(json_string)
-	
-	file.close()
-
-func clear_data_file():
-	var dir = Directory.new()
-	if dir.file_exists(GameManager.GAME_SAVE_FILENAME):
-		dir.remove(GameManager.GAME_SAVE_FILENAME)
-	if dir.file_exists(RECORD_FILENAME):
-		dir.remove(RECORD_FILENAME)
-	
-
-func load_json_from_file():
-	var loaded_value = null
-	
-	var file = File.new()
-	if file.file_exists(GameManager.GAME_SAVE_FILENAME):
-		file.open(GameManager.GAME_SAVE_FILENAME, File.READ)
-		
-		var json_string = file.get_as_text()
-		var json_data = parse_json(json_string)
-		
-		if json_data:
-			var v
-			if json_data.has("game_version"):
-				v = json_data["game_version"]
-			else:
-				v = "unknown"
-			
-			if v != GameManager.GAME_VERSION && GameManager.GAME_VERSION_CLEAR_RECORD:
-				# ELIMINO I DATI
-				clear_data_file()
-			else:
-				# CARICO I DATI
-				if json_data.has("record_time"):
-					record_time = json_data["record_time"]
-		
-		file.close()

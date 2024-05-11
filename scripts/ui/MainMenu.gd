@@ -1,8 +1,4 @@
 extends Control
-class_name MainMenu
-
-
-
 
 func _on_Button1_pressed():
 	GameManager.load_level("Level01")

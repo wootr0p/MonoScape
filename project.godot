@@ -14,35 +14,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/entities/Checkpoint.gd"
 }, {
-"base": "Area2D",
-"class": "Coin",
-"language": "GDScript",
-"path": "res://scripts/entities/Coin.gd"
-}, {
-"base": "Control",
-"class": "MainMenu",
-"language": "GDScript",
-"path": "res://scripts/ui/MainMenu.gd"
-}, {
-"base": "Label",
-"class": "MessageText",
-"language": "GDScript",
-"path": "res://scripts/ui/MessageText.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://scripts/entities/Player.gd"
-}, {
-"base": "Area2D",
-"class": "Spikes",
-"language": "GDScript",
-"path": "res://scripts/entities/Spikes.gd"
-}, {
-"base": "Line2D",
-"class": "Trail",
-"language": "GDScript",
-"path": "res://scripts/entities/Trail.gd"
 }, {
 "base": "Control",
 "class": "VirtualJoystick",
@@ -51,12 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Checkpoint": "",
-"Coin": "",
-"MainMenu": "",
-"MessageText": "",
 "Player": "",
-"Spikes": "",
-"Trail": "",
 "VirtualJoystick": ""
 }
 
