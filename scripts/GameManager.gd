@@ -1,6 +1,6 @@
 extends Node2D
 
-const GAME_VERSION = "0.1.9"
+const GAME_VERSION = "0.2.0"
 const GAME_VERSION_CLEAR_RECORD = true
 
 const GAME_SAVE_FILENAME = "user://game.sav"
@@ -54,6 +54,7 @@ func load_record_from_file(level):
 		
 		var json_string = file.get_as_text()
 		var json_data = parse_json(json_string)
+		file.close()
 		
 		if json_data:
 			var v
@@ -71,13 +72,18 @@ func load_record_from_file(level):
 					if json_data["records"].has(level):
 						LevelManager.record_time = json_data["records"][level]
 		
-		file.close()
+		
 
 func clear_data_file():
-	# Cancello i record:
-	#var dir = Directory.new()
-	#if dir.file_exists(GameManager.GAME_SAVE_FILENAME):
-	#	dir.remove(GameManager.GAME_SAVE_FILENAME)
-		
-	# TODO cancellare i vecchi ghost
-	pass
+	# Cancello tutti i file nella cartella user data:
+	var dir = Directory.new()
+	if dir.open("user://") == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				print("Found directory: " + file_name)
+			else:
+				print("Found file: " + file_name)
+				dir.remove(file_name)
+			file_name = dir.get_next()
