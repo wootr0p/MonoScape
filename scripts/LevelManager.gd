@@ -5,6 +5,7 @@ signal respawn_player
 signal level_complete
 signal level_win
 signal slow_timer
+signal gravity_flipped
 
 const GRAVITY = 800
 const FALL_GRAVITY_MUL = 1.2
@@ -65,6 +66,11 @@ func level_init(lvl_name):
 func level_destroy():
 	is_level_active = false;
 	GameManager.load_menu()
+
+func flip_gravity():
+	print("FLIP_GRAVITY")
+	emit_signal("gravity_flipped")
+	gravity = -gravity
 
 func _process(_delta):
 	if is_level_active:

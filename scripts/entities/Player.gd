@@ -39,6 +39,7 @@ func _ready():
 	
 	LevelManager.connect("respawn_world", self, "on_respawn_world")
 	LevelManager.connect("respawn_player", self, "on_respawn_player")
+	LevelManager.connect("gravity_flipped", self, "on_gravity_flipped")
 
 func _physics_process(delta):
 	
@@ -240,3 +241,6 @@ func on_respawn_world():
 func on_respawn_player():
 	position = LevelManager.current_checkpoint.global_position;
 	respawn()
+
+func on_gravity_flipped():
+	rotation_degrees += 180
