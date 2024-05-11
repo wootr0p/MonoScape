@@ -32,9 +32,7 @@ var rng = RandomNumberGenerator.new()
 export var jump_height : float = 100;
 export var jump_time_to_peak : float = 0.5;
 export var jump_time_to_descent : float = 0.45;
-onready var jump_velocity : float = ((2 * jump_height) / jump_time_to_peak) * -1
-onready var jump_gravity : float = ((-2 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1
-onready var fall_gravity : float = ((-2 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1
+onready var jump_velocity : float = -400
 
 func _ready():
 	LevelManager.player_start_position = self.position;
@@ -46,7 +44,7 @@ func _physics_process(delta):
 	
 	# GRAVITY
 	if !is_on_floor():
-		velocity.y += get_gravity() * delta;
+		velocity.y += LevelManager.get_gravity(velocity) * delta;
 	else:
 		velocity.y = 0;
 	
@@ -136,12 +134,12 @@ func Jump(delta):
 	# CADO prima se rilascio il salto, ma non se sto strisciando sul muro
 	if !jump_hold && !Input.is_action_pressed("ui_accept"):
 		#if !$Left_RayCast.is_colliding() && !$Right_RayCast.is_colliding():
-			velocity.y += get_gravity() * delta;
+			velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
 	# se tocco il soffitto cado immediatamente
 	if is_on_ceiling():
 		velocity.y = 0;
-		velocity.y += get_gravity() * delta;
+		velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
 	#print("ja:", jump_avaiable, " wj:" , wanna_jump, "coyote ", coyote_time, " ", $Left_RayCast.is_colliding(), $Right_RayCast.is_colliding());
 
@@ -196,10 +194,6 @@ func stop_slide_sound():
 	if $SlideSound.playing:
 		$SlideSound.playing = false;
 	
-func get_gravity() -> float:
-	# in base a se sto cadendo o no ho una gravità diversa
-	return jump_gravity if velocity.y < 0 else fall_gravity;
-
 func _on_Jump_Buffer_Timer_timeout():
 	wanna_jump = false;
 

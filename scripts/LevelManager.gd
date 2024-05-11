@@ -6,11 +6,16 @@ signal level_complete
 signal level_win
 signal slow_timer
 
+const GRAVITY = 800
+const FALL_GRAVITY_MUL = 1.2
+
 var current_checkpoint : Checkpoint
 
 var level_name = ""
 var ghost_level_save_path = "";
 var is_level_active = false
+
+var gravity : float
 
 var player_start_position : Vector2;
 var level_clear : bool = false;
@@ -31,6 +36,7 @@ func respawn(force):
 func respawn_world():
 	level_clear = false;
 	current_checkpoint = null;
+	gravity = GRAVITY
 	emit_signal("respawn_world");
 
 func respawn_player():
@@ -54,6 +60,7 @@ func level_init(lvl_name):
 	level_clear = false
 	GameManager.load_record_from_file(level_name)
 	is_level_active = true;
+	respawn_world()
 
 func level_destroy():
 	is_level_active = false;
@@ -65,6 +72,10 @@ func _process(_delta):
 			respawn(true)
 		if Input.is_action_just_pressed("ui_home"):
 			level_destroy()
+
+func get_gravity(velocity) -> float:
+	# in base a se sto cadendo o no ho una gravità diversa
+	return gravity if velocity.y < 0 else gravity * FALL_GRAVITY_MUL;
 
 func _on_Restart_Timer_timeout():
 	respawn(false)
