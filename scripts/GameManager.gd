@@ -9,11 +9,14 @@ const GAME_MENU_SCENE = "res://scenes/Main.tscn"
 
 func load_level(level_name):
 	var level_path = "res://scenes/levels/" + level_name + ".tscn"
-	call_deferred("_deferred_switch_scene", level_path, true)
+	get_tree().change_scene(level_path)
+	LevelManager.level_init()
+	#call_deferred("_deferred_switch_scene", level_path, true)
 	
 
 func load_menu():
-	call_deferred("_deferred_switch_scene", GAME_MENU_SCENE, false)
+	get_tree().change_scene(GAME_MENU_SCENE)
+	#call_deferred("_deferred_switch_scene", GAME_MENU_SCENE, false)
 
 func _deferred_switch_scene(path, isLevel):
 	get_tree().change_scene(path)

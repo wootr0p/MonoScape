@@ -3,6 +3,9 @@ class_name Checkpoint
 
 var activated = false;
 
+func _ready():
+	LevelManager.connect("respawn_world", self, "on_respawn_world")
+
 func activate():
 	if !activated:
 		activated = true;
@@ -18,3 +21,6 @@ func reset():
 func _on_Area2D_body_entered(body):
 	if body is KinematicBody2D:
 		activate()
+
+func on_respawn_world():
+	reset()
