@@ -17,6 +17,7 @@ var ghost_level_save_path = "";
 var is_level_active = false
 
 var gravity : float
+var gravity_sign: int
 
 var player_start_position : Vector2;
 var level_clear : bool = false;
@@ -38,6 +39,7 @@ func respawn_world():
 	level_clear = false;
 	current_checkpoint = null;
 	gravity = GRAVITY
+	gravity_sign = sign(gravity)
 	emit_signal("respawn_world");
 
 func respawn_player():
@@ -69,8 +71,9 @@ func level_destroy():
 
 func flip_gravity():
 	print("FLIP_GRAVITY")
-	emit_signal("gravity_flipped")
 	gravity = -gravity
+	gravity_sign = sign(gravity)
+	emit_signal("gravity_flipped")
 
 func _process(_delta):
 	if is_level_active:

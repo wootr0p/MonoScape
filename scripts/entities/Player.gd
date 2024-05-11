@@ -126,7 +126,7 @@ func Jump(delta):
 	if jump_avaiable:
 		if wanna_jump:
 			# SALTO
-			velocity.y = jump_velocity
+			velocity.y = LevelManager.gravity_sign * jump_velocity
 			play_jump_sound()
 			jump_avaiable = false;
 			jump_hold = true;
@@ -142,45 +142,70 @@ func Jump(delta):
 		velocity.y = 0;
 		velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
-	#print("ja:", jump_avaiable, " wj:" , wanna_jump, "coyote ", coyote_time, " ", $Left_RayCast.is_colliding(), $Right_RayCast.is_colliding());
+	#print("ja:", jump_avaiable, " wj:" , wanna_jump, " coyote ", coyote_time, " ", $Left_RayCast.is_colliding(), $Right_RayCast.is_colliding());
 
 func WallJump(delta):
 	if !is_on_floor():
-		if $Left_RayCast.is_colliding():
-			if velocity.y > 0:
+		if is_on_left_wall():
+			if velocity.y * LevelManager.gravity_sign > 0:
 				velocity.y *= WALL_JUMP_SLIPPERY;
 				play_slide_sound()
 			else:
 				stop_slide_sound()
 			if Input.is_action_just_pressed("ui_accept") && !wall_jump_left:
 				# WALL JUMP A DESTRA
-				velocity.y = jump_velocity * WALL_JUMP_MUL
-				velocity.x = WALL_JUMP_BOUNCE_SPEED
+				velocity.y = LevelManager.gravity_sign * jump_velocity * WALL_JUMP_MUL
+				velocity.x = LevelManager.gravity_sign * WALL_JUMP_BOUNCE_SPEED
 				play_jump_sound()
 				wall_jump_left = true
 				wall_jump_right = false
 		
-		if $Right_RayCast.is_colliding():
-			if velocity.y > 0:
+		if is_on_right_wall():
+			if velocity.y * LevelManager.gravity_sign > 0:
 				velocity.y *= WALL_JUMP_SLIPPERY;
 				play_slide_sound()
 			else:
 				stop_slide_sound()
 			if Input.is_action_just_pressed("ui_accept") && !wall_jump_right:
 				# WALL JUMP A SINISTRA
-				velocity.y = jump_velocity * WALL_JUMP_MUL
-				velocity.x = -WALL_JUMP_BOUNCE_SPEED
+				velocity.y = LevelManager.gravity_sign * jump_velocity * WALL_JUMP_MUL
+				velocity.x = -1 * LevelManager.gravity_sign * WALL_JUMP_BOUNCE_SPEED
 				play_jump_sound()
 				wall_jump_right = true
 				wall_jump_left = false
 				
-		if !$Left_RayCast.is_colliding() && !$Right_RayCast.is_colliding():
+		if !is_on_left_wall() && !is_on_right_wall():
 			stop_slide_sound()
 	else:
 		wall_jump_right = false
 		wall_jump_left = false
 		stop_slide_sound()
 
+func is_on_right_wall():
+	if LevelManager.gravity_sign:
+		return $Right_RayCast.is_colliding()
+	else:
+		return $Left_RayCast.is_colliding()
+
+func is_on_left_wall():
+	if LevelManager.gravity_sign:
+		return $Left_RayCast.is_colliding()
+	else:
+		return $Right_RayCast.is_colliding()
+
+func is_on_floor():
+	var g1 = $RaycastGround1.is_colliding()
+	var g2 = $RaycastGround2.is_colliding()
+	var g3 = $RaycastGround3.is_colliding()
+	#print("g1:", g1, " ", "g2:", g2, " ", "g3:", g3, " ")
+	return g1 || g2 || g3
+
+func is_on_ceiling():
+	var c1 = $RaycastCeiling1.is_colliding()
+	var c2 = $RaycastCeiling2.is_colliding()
+	var c3 = $RaycastCeiling3.is_colliding()
+	#print("c1:", c1, " ", "c2:", c2, " ", "c3:", c3, " ")
+	return c1 || c2 || c3
 
 func play_jump_sound():
 	$JumpSound.pitch_scale = rng.randf_range(0.8, 1.2)
@@ -236,6 +261,7 @@ func respawn():
 
 func on_respawn_world():
 	self.position = LevelManager.player_start_position;
+	rotation_degrees = 0
 	respawn()
 
 func on_respawn_player():
@@ -243,4 +269,7 @@ func on_respawn_player():
 	respawn()
 
 func on_gravity_flipped():
-	rotation_degrees += 180
+	if LevelManager.gravity_sign < 0:
+		rotation_degrees = 180
+	else:
+		rotation_degrees = 0

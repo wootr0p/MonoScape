@@ -116,6 +116,36 @@ shape = SubResource( 9 )
 wait_time = 0.1
 one_shot = true
 
+[node name="RaycastCeiling1" type="RayCast2D" parent="."]
+position = Vector2( 0, -8 )
+enabled = true
+cast_to = Vector2( 0, -1 )
+
+[node name="RaycastCeiling2" type="RayCast2D" parent="."]
+position = Vector2( 4, -8 )
+enabled = true
+cast_to = Vector2( 0, -1 )
+
+[node name="RaycastCeiling3" type="RayCast2D" parent="."]
+position = Vector2( -4, -8 )
+enabled = true
+cast_to = Vector2( 0, -1 )
+
+[node name="RaycastGround1" type="RayCast2D" parent="."]
+position = Vector2( 0, 8 )
+enabled = true
+cast_to = Vector2( 0, 1 )
+
+[node name="RaycastGround2" type="RayCast2D" parent="."]
+position = Vector2( -4, 8 )
+enabled = true
+cast_to = Vector2( 0, 1 )
+
+[node name="RaycastGround3" type="RayCast2D" parent="."]
+position = Vector2( 4, 8 )
+enabled = true
+cast_to = Vector2( 0, 1 )
+
 [connection signal="timeout" from="Jump_Buffer_Timer" to="." method="_on_Jump_Buffer_Timer_timeout"]
 [connection signal="timeout" from="Coyote_Time_Timer" to="." method="_on_Coyote_Time_Timer_timeout"]
 [connection signal="timeout" from="Jump_Min_Hold_Time" to="." method="_on_Jump_Min_Hold_Time_timeout"]
