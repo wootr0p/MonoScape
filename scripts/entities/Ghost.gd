@@ -1,16 +1,19 @@
 extends Node2D
-class_name Ghost
 
 var ghost_positions_playback = []
 var ghost_positions_record = []
 var ghost_positions = []
 var playback_index = 0
 
+var player
+
 func _ready():
-	LevelManager.ghost = self
-	
+	player = get_tree().get_nodes_in_group("Player")[0]
 	ghost_positions_playback = load_from_file()
 	$AnimatedSprite.visible = (ghost_positions_playback.size() > 0)
+	
+	LevelManager.connect("respawn_world", self, "on_respawn_world")
+	LevelManager.connect("level_win", self, "on_level_win")
 
 func step():
 	if playback_index < ghost_positions_playback.size():
@@ -69,3 +72,16 @@ func load_from_file():
 		file.close()
 	
 	return array_loaded
+
+
+func _physics_process(_delta):
+	if LevelManager.is_level_active:
+		if !LevelManager.level_clear:
+			save(player.position)
+		step()
+
+func on_respawn_world():
+	reset()
+
+func on_level_win():
+	new_record()

@@ -1,8 +1,6 @@
 extends KinematicBody2D
 class_name Player
 
-var trail : Trail;
-
 const VEL_Y_MAX := 300
 const X_ACC := 1000
 const X_DEC := 1200
@@ -39,8 +37,10 @@ onready var jump_gravity : float = ((-2 * jump_height) / (jump_time_to_peak * ju
 onready var fall_gravity : float = ((-2 * jump_height) / (jump_time_to_descent * jump_time_to_descent)) * -1
 
 func _ready():
-	LevelManager.player = self;
 	LevelManager.player_start_position = self.position;
+	
+	LevelManager.connect("respawn_world", self, "on_respawn_world")
+	LevelManager.connect("respawn_player", self, "on_respawn_player")
 
 func _physics_process(delta):
 	
@@ -210,15 +210,9 @@ func _on_Coyote_Time_Timer_timeout():
 func _on_Jump_Min_Hold_Time_timeout():
 	jump_hold = false;
 
-func _on_Area2D_body_entered(body: Node):
-	if body is KinematicBody2D:
-		# KILL PLAYER
-		die()
-		LevelManager.respawn_player_delayed()
-
 func _on_End_body_entered(body):
 	get_tree().get_nodes_in_group("UI_Stopwatch")[0].stop_timer()
-	LevelManager.win_level()
+	LevelManager.level_complete()
 
 func _on_DashReloadTimer_timeout():
 	$Trail.is_active = false
@@ -235,6 +229,7 @@ func die():
 	$SlideSound.playing = false;
 	$AnimatedSprite.visible = false
 	$Trail.is_active = false
+	LevelManager.respawn_player_delayed()
 
 func respawn():
 	is_player_alive = true
@@ -244,4 +239,10 @@ func respawn():
 	$AnimatedSprite.visible = true
 	$Trail.is_active = false
 
+func on_respawn_world():
+	self.position = LevelManager.player_start_position;
+	respawn()
 
+func on_respawn_player():
+	position = LevelManager.current_checkpoint.global_position;
+	respawn()
