@@ -35,7 +35,7 @@ func save_record_to_file(level, record):
 	else:
 		json_data = JSON.parse(json_string).result
 		# Verifica se la chiave "records" esiste nel dizionario
-		if !"records" in json_data:
+		if !("records" in json_data):
 			json_data["records"] = {}
 	
 	# Scrivo il record

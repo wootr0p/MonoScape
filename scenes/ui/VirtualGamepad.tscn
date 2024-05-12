@@ -35,13 +35,13 @@ anchor_left = 1.0
 anchor_right = 1.0
 
 [node name="TouchScreenButton3" type="TouchScreenButton" parent="Menu"]
-position = Vector2( -110, 14 )
+position = Vector2( -285, 14 )
 scale = Vector2( 1.51563, 1.51563 )
 normal = ExtResource( 2 )
 action = "ui_exit"
 
 [node name="TouchScreenButton4" type="TouchScreenButton" parent="Menu"]
-position = Vector2( -285, 14 )
+position = Vector2( -110, 14 )
 scale = Vector2( 1.51563, 1.51563 )
 normal = ExtResource( 5 )
 action = "ui_home"
