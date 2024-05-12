@@ -1,6 +1,6 @@
 extends Node2D
 
-const GAME_VERSION = "0.2.0"
+const GAME_VERSION = "0.2.0b2"
 const GAME_VERSION_CLEAR_RECORD = true
 
 const GAME_SAVE_FILENAME = "user://game.sav"
@@ -18,25 +18,32 @@ func load_menu():
 func save_record_to_file(level, record):
 	# Leggo il contenuto del file
 	var file = File.new()
-	if !file.file_exists(GameManager.GAME_SAVE_FILENAME):
-		file.open(GameManager.GAME_SAVE_FILENAME, File.WRITE_READ)
-	else:
-		file.open(GameManager.GAME_SAVE_FILENAME, File.READ_WRITE)
-	
-	var json_string = file.get_as_text()
-	var json_data
-	
-	if !json_string:
-		# Il file è vuoto
-		json_data = {
+	var json_string
+	var json_data = {
 			"game_version": GameManager.GAME_VERSION,
 			"records": {}
 		}
+	
+	if !file.file_exists(GameManager.GAME_SAVE_FILENAME):
+		file.open(GameManager.GAME_SAVE_FILENAME, File.WRITE)
+		# Il file è vuoto
 	else:
-		json_data = JSON.parse(json_string).result
-		# Verifica se la chiave "records" esiste nel dizionario
-		if !("records" in json_data):
-			json_data["records"] = {}
+		# Leggo il file e prendo i dati
+		file.open(GameManager.GAME_SAVE_FILENAME, File.READ)
+	
+		json_string = file.get_as_text()
+		
+		if json_string:
+			# Il file è pieno
+			json_data = JSON.parse(json_string).result
+			# Verifica se la chiave "records" esiste nel dizionario
+			if !("records" in json_data):
+				json_data["records"] = {}
+		
+		# Chiudo il file e riapro in scrittura
+		file.close()
+		file.open(GameManager.GAME_SAVE_FILENAME, File.WRITE)
+		
 	
 	# Scrivo il record
 	json_data["records"][level] = record
