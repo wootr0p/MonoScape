@@ -266,6 +266,7 @@ func on_respawn_world():
 
 func on_respawn_player():
 	position = LevelManager.current_checkpoint.global_position;
+	on_gravity_flipped()
 	respawn()
 
 func on_gravity_flipped():

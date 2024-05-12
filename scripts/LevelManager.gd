@@ -18,6 +18,7 @@ var is_level_active = false
 
 var gravity : float
 var gravity_sign: int
+var checkpoint_gravity: float
 
 var player_start_position : Vector2;
 var level_clear : bool = false;
@@ -43,6 +44,8 @@ func respawn_world():
 	emit_signal("respawn_world");
 
 func respawn_player():
+	gravity = checkpoint_gravity
+	gravity_sign = sign(gravity)
 	emit_signal("respawn_player");
 
 func level_complete():
@@ -58,6 +61,8 @@ func slow_timer(amount):
 	emit_signal("slow_timer", amount)
 
 func level_init(lvl_name):
+	checkpoint_gravity = gravity
+	gravity_sign = sign(gravity)
 	level_name = lvl_name
 	ghost_level_save_path = "user://" + level_name + "_ghost.dat"
 	level_clear = false
@@ -74,6 +79,11 @@ func flip_gravity():
 	gravity = -gravity
 	gravity_sign = sign(gravity)
 	emit_signal("gravity_flipped")
+
+func checkpoint_activated(checkpoint):
+	current_checkpoint = checkpoint;
+	checkpoint_gravity = gravity;
+	
 
 func _process(_delta):
 	if is_level_active:

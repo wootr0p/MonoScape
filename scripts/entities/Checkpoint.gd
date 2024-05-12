@@ -9,9 +9,9 @@ func _ready():
 func activate():
 	if !activated:
 		activated = true;
-		LevelManager.current_checkpoint = self;
 		$AnimationPlayer.play("activate");
 		print("Checkpoint activated!")
+		LevelManager.checkpoint_activated(self)
 
 func reset():
 	activated = false;

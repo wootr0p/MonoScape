@@ -5,7 +5,7 @@ func _on_Button1_pressed():
 
 
 func _on_Button2_pressed():
-	pass
+	GameManager.load_level("Level02")
 
 
 func _on_Button3_pressed():
