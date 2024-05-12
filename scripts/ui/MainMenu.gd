@@ -5,8 +5,12 @@ func _on_Button1_pressed():
 
 
 func _on_Button2_pressed():
-	GameManager.load_level("Playground")
+	pass
 
 
 func _on_Button3_pressed():
+	GameManager.load_level("Playground")
+
+
+func _on_Button4_pressed():
 	pass # Replace with function body.
