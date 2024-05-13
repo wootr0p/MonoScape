@@ -30,6 +30,7 @@ func on_respawn_world():
 	restart_timer()
 
 func on_level_complete():
+	stop_timer()
 	if time < LevelManager.record_time:
 		LevelManager.record_time = time
 		LevelManager.level_win()

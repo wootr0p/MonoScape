@@ -230,10 +230,6 @@ func _on_Coyote_Time_Timer_timeout():
 func _on_Jump_Min_Hold_Time_timeout():
 	jump_hold = false;
 
-func _on_End_body_entered(body):
-	get_tree().get_nodes_in_group("UI_Stopwatch")[0].stop_timer()
-	LevelManager.level_complete()
-
 func _on_DashReloadTimer_timeout():
 	$Trail.is_active = false
 

@@ -49,6 +49,7 @@ func respawn_player():
 	emit_signal("respawn_player");
 
 func level_complete():
+	print("LEVEL COMPLETE!")
 	level_clear = true
 	emit_signal("level_complete")
 
