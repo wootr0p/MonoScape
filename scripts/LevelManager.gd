@@ -16,8 +16,8 @@ var level_name = ""
 var ghost_level_save_path = "";
 var is_level_active = false
 
-var gravity : float
-var gravity_sign: int
+var gravity : float = GRAVITY
+var gravity_sign: int = +1
 var checkpoint_gravity: float
 
 var player_start_position : Vector2;
@@ -87,11 +87,10 @@ func checkpoint_activated(checkpoint):
 	
 
 func _process(_delta):
-	if is_level_active:
-		if Input.is_action_just_released("ui_exit"):
-			respawn(true)
-		if Input.is_action_just_pressed("ui_home"):
-			level_destroy()
+	if Input.is_action_just_released("ui_exit"):
+		respawn(true)
+	if Input.is_action_just_pressed("ui_home"):
+		level_destroy()
 
 func get_gravity(velocity) -> float:
 	# in base a se sto cadendo o no ho una gravità diversa
