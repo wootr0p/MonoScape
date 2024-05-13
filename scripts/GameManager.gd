@@ -1,7 +1,7 @@
 extends Node2D
 
-const GAME_VERSION = "0.2.0b2"
-const GAME_VERSION_CLEAR_RECORD = true
+const GAME_VERSION = "0.2.1a"
+const GAME_VERSION_CLEAR_RECORD = false
 
 const GAME_SAVE_FILENAME = "user://game.sav"
 const GAME_MENU_SCENE = "res://scenes/Main.tscn"
