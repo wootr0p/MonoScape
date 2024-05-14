@@ -64,7 +64,6 @@ margin_top = 444.0
 margin_right = 770.0
 margin_bottom = 526.0
 custom_fonts/font = SubResource( 2 )
-disabled = true
 text = "Level 3"
 
 [node name="Button3" type="Button" parent="MarginContainer/VBoxContainer"]

@@ -5,7 +5,7 @@ const GAME_VERSION_CLEAR_RECORD = false
 
 const GAME_SAVE_FILENAME = "user://game.sav"
 const GAME_MENU_SCENE = "res://scenes/Main.tscn"
-const GAME_TIME_SCALE = 1.0
+const GAME_TIME_SCALE = 1
 
 func _ready():
 	Engine.time_scale = GAME_TIME_SCALE
