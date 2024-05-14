@@ -21,7 +21,7 @@ func reset():
 	print("Checkpoint deactivated!")
 
 func _on_Area2D_body_entered(body):
-	if body is KinematicBody2D:
+	if body is Player:
 		if (upside_down && LevelManager.gravity_sign < 0) || (!upside_down && LevelManager.gravity_sign > 0):
 			activate()
 
