@@ -75,9 +75,12 @@ func level_destroy():
 	is_level_active = false;
 	GameManager.load_menu()
 
-func flip_gravity():
-	print("FLIP_GRAVITY")
-	gravity = -gravity
+func flip_gravity(gravity_restore):
+	print("FLIP_GRAVITY ", gravity_restore)
+	if (gravity_restore):
+		gravity = GRAVITY
+	else:
+		gravity = -GRAVITY
 	gravity_sign = sign(gravity)
 	emit_signal("gravity_flipped")
 

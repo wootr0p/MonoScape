@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gravity_changer.wav-0eb473f8d6b6f5ed070a1b8d5b1b938c.sample"
+
+[deps]
+
+source_file="res://assets/sounds/gravity_changer.wav"
+dest_files=[ "res://.import/gravity_changer.wav-0eb473f8d6b6f5ed070a1b8d5b1b938c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

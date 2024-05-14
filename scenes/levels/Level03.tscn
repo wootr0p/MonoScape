@@ -174,5 +174,6 @@ position = Vector2( 322, -21 )
 [node name="GravityChanger2" parent="." instance=ExtResource( 10 )]
 position = Vector2( 22, -170 )
 rotation = 3.14159
+gravity_restore = true
 
 [connection signal="body_entered" from="Spikes" to="Spikes" method="_on_Spikes_body_entered"]

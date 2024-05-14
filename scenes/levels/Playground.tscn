@@ -179,12 +179,18 @@ position = Vector2( 544, -73 )
 [node name="GravityChanger" parent="." instance=ExtResource( 6 )]
 position = Vector2( 236, -28 )
 
+[node name="GravityChanger4" parent="." instance=ExtResource( 6 )]
+position = Vector2( 27, -164 )
+rotation = 3.14159
+gravity_restore = true
+
 [node name="GravityChanger3" parent="." instance=ExtResource( 6 )]
 position = Vector2( 22, 201 )
 
 [node name="GravityChanger2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 626, -166 )
 rotation = 3.14159
+gravity_restore = true
 
 [node name="End" parent="." instance=ExtResource( 9 )]
 position = Vector2( 620, 116 )
