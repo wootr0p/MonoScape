@@ -9,6 +9,7 @@ signal gravity_flipped
 
 const GRAVITY = 800
 const FALL_GRAVITY_MUL = 1.2
+const PIXELS_PER_TILES = 8
 
 var current_checkpoint : Checkpoint
 

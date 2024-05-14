@@ -10,5 +10,4 @@ func _ready():
 	self.position = target_node.position + pos_offset
 
 func _process(delta):
-
 	self.position = lerp(self.position, target_node.position + pos_offset, lerpspeed)
