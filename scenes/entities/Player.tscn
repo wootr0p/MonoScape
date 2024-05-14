@@ -9,10 +9,6 @@
 [ext_resource path="res://assets/sprites/player_canDash.png" type="Texture" id=7]
 [ext_resource path="res://assets/sounds/dash.wav" type="AudioStream" id=8]
 
-[sub_resource type="CapsuleShape2D" id=10]
-radius = 4.0
-height = 8.0
-
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
 "frames": [ ExtResource( 7 ) ],
@@ -32,12 +28,13 @@ colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 3, 7 )
 
+[sub_resource type="CapsuleShape2D" id=10]
+radius = 4.0
+height = 7.5
+
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 z_index = 1
 script = ExtResource( 2 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 10 )
 
 [node name="Jump_Buffer_Timer" type="Timer" parent="."]
 wait_time = 0.2
@@ -154,19 +151,22 @@ enabled = true
 cast_to = Vector2( 0, -2 )
 
 [node name="RaycastGround1" type="RayCast2D" parent="."]
-position = Vector2( 0, 8 )
+position = Vector2( 0, 7 )
 enabled = true
-cast_to = Vector2( 0, 1 )
+cast_to = Vector2( 0, 2 )
 
 [node name="RaycastGround2" type="RayCast2D" parent="."]
-position = Vector2( -2, 8 )
+position = Vector2( -2, 7 )
 enabled = true
-cast_to = Vector2( 0, 1 )
+cast_to = Vector2( 0, 2 )
 
 [node name="RaycastGround3" type="RayCast2D" parent="."]
-position = Vector2( 2, 8 )
+position = Vector2( 2, 7 )
 enabled = true
-cast_to = Vector2( 0, 1 )
+cast_to = Vector2( 0, 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 10 )
 
 [connection signal="timeout" from="Jump_Buffer_Timer" to="." method="_on_Jump_Buffer_Timer_timeout"]
 [connection signal="timeout" from="Coyote_Time_Timer" to="." method="_on_Coyote_Time_Timer_timeout"]
