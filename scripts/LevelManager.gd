@@ -28,12 +28,13 @@ func respawn_player_delayed():
 	$Restart_Timer.start()
 
 func respawn(force):
-	print("Respawn Player!")
-	
-	if force || level_clear || !is_instance_valid(current_checkpoint):
-		respawn_world();
-	else:
-		respawn_player();
+	if $Restart_Timer.is_stopped():
+		print("Respawn Player!")
+		
+		if force || level_clear || !is_instance_valid(current_checkpoint):
+			respawn_world();
+		else:
+			respawn_player();
 	
 
 func respawn_world():
