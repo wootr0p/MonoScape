@@ -185,8 +185,11 @@ gravity_restore = true
 
 [node name="MovingPlatform" parent="." instance=ExtResource( 12 )]
 position = Vector2( 192, -68 )
+movement_span = 2
+movement_speed = 0.5
+movement_switch_time = 1.0
 
-[node name="MovingPlatform" parent="MovingPlatform" instance=ExtResource( 11 )]
-position = Vector2( -48, -80 )
+[node name="MovingPlatform2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 144, -148 )
 
 [connection signal="body_entered" from="Spikes" to="Spikes" method="_on_Spikes_body_entered"]
