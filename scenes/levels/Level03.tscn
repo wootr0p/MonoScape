@@ -122,7 +122,7 @@ points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
 } ]
 0/z_index = 0
 
-[node name="Level03" type="Node2D"]
+[node name="Level" type="Node2D"]
 
 [node name="Game_UI" parent="." instance=ExtResource( 2 )]
 
@@ -160,7 +160,12 @@ format = 1
 tile_data = PoolIntArray( -131058, 0, 1, -131057, 0, 1, -131056, 0, 1, -131055, 0, 1 )
 
 [node name="Checkpoint" parent="." instance=ExtResource( 7 )]
-position = Vector2( 176, -16 )
+position = Vector2( 172, -16 )
+
+[node name="Checkpoint2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 172, -176 )
+rotation = 3.14159
+upside_down = true
 
 [node name="Coin" parent="." instance=ExtResource( 5 )]
 position = Vector2( 69, -16 )

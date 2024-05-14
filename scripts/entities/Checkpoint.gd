@@ -1,6 +1,8 @@
 extends Area2D
 class_name Checkpoint
 
+export var upside_down : bool = false
+
 var activated = false;
 
 func _ready():
@@ -20,7 +22,8 @@ func reset():
 
 func _on_Area2D_body_entered(body):
 	if body is KinematicBody2D:
-		activate()
+		if (upside_down && LevelManager.gravity_sign < 0) || (!upside_down && LevelManager.gravity_sign > 0):
+			activate()
 
 func on_respawn_world():
 	reset()

@@ -32,7 +32,6 @@ colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 extents = Vector2( 3, 7 )
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
-position = Vector2( 1, -59 )
 z_index = 1
 script = ExtResource( 2 )
 

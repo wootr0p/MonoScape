@@ -122,7 +122,7 @@ points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
 } ]
 0/z_index = 0
 
-[node name="Level02" type="Node2D"]
+[node name="Level" type="Node2D"]
 
 [node name="Ghost" parent="." instance=ExtResource( 2 )]
 position = Vector2( 46, -16 )
@@ -169,6 +169,7 @@ position = Vector2( 660, -16 )
 [node name="Checkpoint3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 581, -200 )
 rotation = 3.14159
+upside_down = true
 
 [node name="Coin" parent="." instance=ExtResource( 5 )]
 position = Vector2( 352, -16 )
