@@ -132,14 +132,16 @@ func Jump(delta):
 			jump_hold = true;
 			$Jump_Min_Hold_Time.start()
 	
-	# CADO prima se rilascio il salto, ma non se sto strisciando sul muro
-	if !jump_hold && !Input.is_action_pressed("ui_accept"):
-		#if !$Left_RayCast.is_colliding() && !$Right_RayCast.is_colliding():
-			velocity.y += LevelManager.get_gravity(velocity) * delta;
+	# CADO prima se rilascio il salto, ma non se sono a terra
+	if !is_on_floor():
+		if !jump_hold && !Input.is_action_pressed("ui_accept"):
+			#if !$Left_RayCast.is_colliding() && !$Right_RayCast.is_colliding():
+				velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
 	# se tocco il soffitto cado immediatamente
 	if is_on_ceiling():
-		velocity.y = 0;
+		if velocity.y < 0:
+			velocity.y = 0;
 		velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
 	#print("ja:", jump_avaiable, " wj:" , wanna_jump, " coyote ", coyote_time, " ", $Left_RayCast.is_colliding(), $Right_RayCast.is_colliding());
@@ -183,15 +185,15 @@ func WallJump(delta):
 
 func is_on_right_wall():
 	if LevelManager.gravity_sign:
-		return $Right_RayCast.is_colliding()
+		return $Right_RayCast1.is_colliding() || $Right_RayCast2.is_colliding() || $Right_RayCast3.is_colliding()
 	else:
-		return $Left_RayCast.is_colliding()
+		return $Left_RayCast1.is_colliding() || $Left_RayCast2.is_colliding() || $Left_RayCast3.is_colliding()
 
 func is_on_left_wall():
 	if LevelManager.gravity_sign:
-		return $Left_RayCast.is_colliding()
+		return $Left_RayCast1.is_colliding() || $Left_RayCast2.is_colliding() || $Left_RayCast3.is_colliding()
 	else:
-		return $Right_RayCast.is_colliding()
+		return $Right_RayCast1.is_colliding() || $Right_RayCast2.is_colliding() || $Right_RayCast3.is_colliding()
 
 func is_on_floor():
 	var g1 = $RaycastGround1.is_colliding()

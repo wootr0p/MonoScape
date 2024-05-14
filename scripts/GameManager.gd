@@ -1,11 +1,14 @@
 extends Node2D
 
-const GAME_VERSION = "0.2.2"
+const GAME_VERSION = "0.2.2+"
 const GAME_VERSION_CLEAR_RECORD = false
 
 const GAME_SAVE_FILENAME = "user://game.sav"
 const GAME_MENU_SCENE = "res://scenes/Main.tscn"
+const GAME_TIME_SCALE = 1.0
 
+func _ready():
+	Engine.time_scale = GAME_TIME_SCALE
 
 func load_level(level_name):
 	var level_path = "res://scenes/levels/" + level_name + ".tscn"

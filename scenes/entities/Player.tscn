@@ -9,8 +9,9 @@
 [ext_resource path="res://assets/sprites/player_canDash.png" type="Texture" id=7]
 [ext_resource path="res://assets/sounds/dash.wav" type="AudioStream" id=8]
 
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 4, 7.5 )
+[sub_resource type="CapsuleShape2D" id=10]
+radius = 4.0
+height = 8.0
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
@@ -36,8 +37,7 @@ z_index = 1
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 0.5 )
-shape = SubResource( 6 )
+shape = SubResource( 10 )
 
 [node name="Jump_Buffer_Timer" type="Timer" parent="."]
 wait_time = 0.2
@@ -51,11 +51,31 @@ one_shot = true
 wait_time = 0.001
 one_shot = true
 
-[node name="Right_RayCast" type="RayCast2D" parent="."]
+[node name="Right_RayCast1" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 6, 0 )
 
-[node name="Left_RayCast" type="RayCast2D" parent="."]
+[node name="Right_RayCast2" type="RayCast2D" parent="."]
+position = Vector2( 0, 7 )
+enabled = true
+cast_to = Vector2( 6, 0 )
+
+[node name="Right_RayCast3" type="RayCast2D" parent="."]
+position = Vector2( 0, -7 )
+enabled = true
+cast_to = Vector2( 6, 0 )
+
+[node name="Left_RayCast1" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( -6, 0 )
+
+[node name="Left_RayCast2" type="RayCast2D" parent="."]
+position = Vector2( 0, 7 )
+enabled = true
+cast_to = Vector2( -6, 0 )
+
+[node name="Left_RayCast3" type="RayCast2D" parent="."]
+position = Vector2( 0, -7 )
 enabled = true
 cast_to = Vector2( -6, 0 )
 
@@ -123,12 +143,12 @@ enabled = true
 cast_to = Vector2( 0, -2 )
 
 [node name="RaycastCeiling2" type="RayCast2D" parent="."]
-position = Vector2( 4, -7 )
+position = Vector2( 2, -7 )
 enabled = true
 cast_to = Vector2( 0, -2 )
 
 [node name="RaycastCeiling3" type="RayCast2D" parent="."]
-position = Vector2( -4, -7 )
+position = Vector2( -2, -7 )
 enabled = true
 cast_to = Vector2( 0, -2 )
 
@@ -138,12 +158,12 @@ enabled = true
 cast_to = Vector2( 0, 1 )
 
 [node name="RaycastGround2" type="RayCast2D" parent="."]
-position = Vector2( -4, 8 )
+position = Vector2( -2, 8 )
 enabled = true
 cast_to = Vector2( 0, 1 )
 
 [node name="RaycastGround3" type="RayCast2D" parent="."]
-position = Vector2( 4, 8 )
+position = Vector2( 2, 8 )
 enabled = true
 cast_to = Vector2( 0, 1 )
 
