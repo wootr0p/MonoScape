@@ -14,3 +14,7 @@ func _on_Button3_pressed():
 
 func _on_Button4_pressed():
 	GameManager.load_level("Level03")
+
+
+func _on_Button5_pressed():
+	GameManager.load_level("StressTest")
