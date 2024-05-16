@@ -54,12 +54,12 @@ enabled = true
 cast_to = Vector2( 6, 0 )
 
 [node name="Right_RayCast2" type="RayCast2D" parent="."]
-position = Vector2( 0, 7 )
+position = Vector2( 0, 6 )
 enabled = true
 cast_to = Vector2( 6, 0 )
 
 [node name="Right_RayCast3" type="RayCast2D" parent="."]
-position = Vector2( 0, -7 )
+position = Vector2( 0, -6 )
 enabled = true
 cast_to = Vector2( 6, 0 )
 
@@ -68,12 +68,12 @@ enabled = true
 cast_to = Vector2( -6, 0 )
 
 [node name="Left_RayCast2" type="RayCast2D" parent="."]
-position = Vector2( 0, 7 )
+position = Vector2( 0, 6 )
 enabled = true
 cast_to = Vector2( -6, 0 )
 
 [node name="Left_RayCast3" type="RayCast2D" parent="."]
-position = Vector2( 0, -7 )
+position = Vector2( 0, -6 )
 enabled = true
 cast_to = Vector2( -6, 0 )
 
@@ -154,17 +154,17 @@ cast_to = Vector2( 0, -2 )
 [node name="RaycastGround1" type="RayCast2D" parent="."]
 position = Vector2( 0, 7 )
 enabled = true
-cast_to = Vector2( 0, 2 )
+cast_to = Vector2( 0, 2.5 )
 
 [node name="RaycastGround2" type="RayCast2D" parent="."]
 position = Vector2( -2, 7 )
 enabled = true
-cast_to = Vector2( 0, 2 )
+cast_to = Vector2( 0, 2.5 )
 
 [node name="RaycastGround3" type="RayCast2D" parent="."]
 position = Vector2( 2, 7 )
 enabled = true
-cast_to = Vector2( 0, 2 )
+cast_to = Vector2( 0, 2.5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 10 )

@@ -9,6 +9,7 @@ const WALL_JUMP_SLIPPERY := 0.85
 const WALL_JUMP_MUL := 2
 const WALL_JUMP_BOUNCE_SPEED := 600
 const DASH_SPEED := 500
+const SNAP_MUL := 32
 
 var is_player_alive = true
 var velocity = Vector2()
@@ -26,6 +27,8 @@ var dash_direction
 var is_dashing := false
 var is_dash_on_air := false
 
+var snap
+
 var rng = RandomNumberGenerator.new()
 
 # Jump math: https://youtu.be/IOe1aGY6hXA?si=XO78Hvkm3UpO0b7t
@@ -42,12 +45,10 @@ func _ready():
 	LevelManager.connect("gravity_flipped", self, "on_gravity_flipped")
 
 func _physics_process(delta):
+	snap = LevelManager.gravity_sign * Vector2.DOWN * SNAP_MUL if is_on_floor() else Vector2.ZERO;	
 	
 	# GRAVITY
-	if !is_on_floor():
-		velocity.y += LevelManager.get_gravity(velocity) * delta;
-	else:
-		velocity.y = 0;
+	velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
 	var x_direction = Input.get_axis("ui_left", "ui_right")
 	var y_direction = Input.get_axis("ui_up", "ui_down")
@@ -74,13 +75,17 @@ func _physics_process(delta):
 	
 	# APPLY VELOCITY
 	#print(velocity)
-	move_and_slide(velocity, Vector2.UP)
+#	move_and_slide(velocity, LevelManager.gravity_sign * Vector2.UP)
+	print('snap ', snap)
+	move_and_slide_with_snap(velocity, snap, LevelManager.gravity_sign * Vector2.UP)
 	
 
 func Dash(delta, x_direction, y_direction):
 	if Input.is_action_just_pressed("ui_cancel") && dash_avaiable:
 		# DASH
 		# di default la direzione è avanti
+		if is_on_floor():
+			snap = Vector2.ZERO
 		if x_direction == 0 && y_direction == 0:
 			x_direction = 1
 		dash_direction = Vector2(x_direction, y_direction).normalized()
@@ -105,7 +110,6 @@ func Dash(delta, x_direction, y_direction):
 		$AnimatedSprite.play("Dash_Ready")
 
 func Jump(delta):
-	
 	# SALTO A MURO
 	WallJump(delta)
 	
@@ -131,6 +135,7 @@ func Jump(delta):
 			jump_avaiable = false;
 			jump_hold = true;
 			$Jump_Min_Hold_Time.start()
+			snap = Vector2.ZERO
 	
 	# CADO prima se rilascio il salto, ma non se sono a terra
 	if !is_on_floor():
@@ -140,11 +145,12 @@ func Jump(delta):
 	
 	# se tocco il soffitto cado immediatamente
 	if is_on_ceiling():
-		if velocity.y < 0:
-			velocity.y = 0;
+#		if LevelManager.gravity_sign * velocity.y < 0:
+#			velocity.y = 0;
 		velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
 	#print("ja:", jump_avaiable, " wj:" , wanna_jump, " coyote ", coyote_time, " ", $Left_RayCast.is_colliding(), $Right_RayCast.is_colliding());
+	return snap
 
 func WallJump(delta):
 	if !is_on_floor():
