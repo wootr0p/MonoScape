@@ -191,7 +191,11 @@ movement_span = 0.5
 position = Vector2( 66, -44 )
 
 [node name="MovingPlatform3" parent="." instance=ExtResource( 11 )]
-position = Vector2( 127, -85 )
+position = Vector2( 129, -115 )
+movement_direction = Vector2( 0, 1 )
+
+[node name="MovingPlatform4" parent="." instance=ExtResource( 11 )]
+position = Vector2( 246, -75 )
 movement_direction = Vector2( 0, 1 )
 
 [connection signal="body_entered" from="Spikes" to="Spikes" method="_on_Spikes_body_entered"]

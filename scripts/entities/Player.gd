@@ -144,13 +144,13 @@ func Jump(delta):
 				velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
 	# se tocco il soffitto cado immediatamente
-	if is_on_ceiling():
+	#if is_on_ceiling():
+		
 #		if LevelManager.gravity_sign * velocity.y < 0:
 #			velocity.y = 0;
-		velocity.y += LevelManager.get_gravity(velocity) * delta;
+		#velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
 	#print("ja:", jump_avaiable, " wj:" , wanna_jump, " coyote ", coyote_time, " ", $Left_RayCast.is_colliding(), $Right_RayCast.is_colliding());
-	return snap
 
 func WallJump(delta):
 	if !is_on_floor():
