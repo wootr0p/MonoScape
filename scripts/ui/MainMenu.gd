@@ -13,7 +13,7 @@ func _on_Button3_pressed():
 
 
 func _on_Button4_pressed():
-	GameManager.load_level("Level03")
+	GameManager.load_level("Test")
 
 
 func _on_Button5_pressed():

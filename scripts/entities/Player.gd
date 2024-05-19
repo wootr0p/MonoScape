@@ -9,7 +9,7 @@ const WALL_JUMP_SLIPPERY := 0.85
 const WALL_JUMP_MUL := 2
 const WALL_JUMP_BOUNCE_SPEED := 600
 const DASH_SPEED := 500
-const SNAP_MUL := 32
+const SNAP_MUL := 0.2
 
 var is_player_alive = true
 var velocity = Vector2()
@@ -74,10 +74,11 @@ func _physics_process(delta):
 		velocity.x *= 0.5;
 	
 	# APPLY VELOCITY
+	#print('snap ', snap, ' Vector: ', LevelManager.gravity_sign * Vector2.UP)
 	#print(velocity)
-#	move_and_slide(velocity, LevelManager.gravity_sign * Vector2.UP)
-	print('snap ', snap)
-	move_and_slide_with_snap(velocity, snap, LevelManager.gravity_sign * Vector2.UP)
+	print('is_on_ceiling() ', is_on_ceiling())
+	move_and_slide(velocity, LevelManager.gravity_sign * Vector2.UP)
+	#move_and_slide_with_snap(velocity, snap, LevelManager.gravity_sign * Vector2.UP)
 	
 
 func Dash(delta, x_direction, y_direction):
@@ -145,7 +146,6 @@ func Jump(delta):
 	
 	# se tocco il soffitto cado immediatamente
 	#if is_on_ceiling():
-		
 #		if LevelManager.gravity_sign * velocity.y < 0:
 #			velocity.y = 0;
 		#velocity.y += LevelManager.get_gravity(velocity) * delta;
