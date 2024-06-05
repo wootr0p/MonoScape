@@ -1,7 +1,7 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1717577747
+::res://::1717578141
 default_bus_layout.tres::AudioBusLayout::-1::1716657837::0::1::::<><>::
-default_env.tres::Environment::6801235819367162408::1717576805::0::1::::<><>::
+default_env.tres::Environment::6801235819367162408::1717578308::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1717577275::0::1::::<><>::
 icon.png::CompressedTexture2D::8516448628895427311::1714491144::1716657862::1::::<><>::
 icon.svg::CompressedTexture2D::736511090169923376::1716657931::1716657932::1::::<><>::
@@ -98,7 +98,7 @@ MovingPlatform_Small.tscn::PackedScene::5227083459095964274::1717576740::0::1:::
 Player.tscn::PackedScene::3559807768491772271::1717576740::0::1::::<><>::uid://0apc8yrbn8f3::::res://assets/sprites/player.png<>res://scripts/entities/Player.gd<>uid://bwqhvjjl3wxv5::::res://assets/sounds/jump.wav<>uid://cjf5q0ivac3vl::::res://assets/sounds/slide.wav<>uid://blo8lfnf0ag54::::res://assets/sounds/death.wav<>res://scenes/entities/Trail.tscn<>uid://c84dbldatjrf1::::res://assets/sprites/player_canDash.png<>uid://cep06guel3534::::res://assets/sounds/dash.wav
 Trail.tscn::PackedScene::-1::1716657837::0::1::::<><>::res://scripts/entities/Trail.gd
 ::res://scenes/levels/::1717576876
-Test.tscn::PackedScene::4875902411365152755::1717576805::0::1::::<><>::uid://dfn25dt880hu3::::res://scenes/entities/End.tscn<>uid://bqynrqap1msjv::::res://scenes/entities/Player.tscn<>uid://7m44sghiyj6x::::res://scenes/entities/Ghost.tscn<>uid://bxdvyctwsfo0v::::res://scenes/ui/game_ui.tscn<>uid://duf4adr55vmin::::res://scenes/entities/Coin.tscn<>uid://b6m408080ie0a::::res://scenes/ui/Camera.tscn<>uid://d1rdl5jf2uebd::::res://scenes/entities/Checkpoint.tscn<>uid://li8rbwa2xr7t::::res://scenes/entities/MovingPlatform_Medium.tscn<>uid://dg0jcix8krdtf::::res://assets/tilesets/level.png<>uid://cgqbkh28jf30y::::res://scenes/entities/MovingPlatform_Small.tscn
+Test.tscn::PackedScene::4875902411365152755::1717578308::0::1::::<><>::uid://dfn25dt880hu3::::res://scenes/entities/End.tscn<>uid://bqynrqap1msjv::::res://scenes/entities/Player.tscn<>uid://7m44sghiyj6x::::res://scenes/entities/Ghost.tscn<>uid://bxdvyctwsfo0v::::res://scenes/ui/game_ui.tscn<>uid://duf4adr55vmin::::res://scenes/entities/Coin.tscn<>uid://b6m408080ie0a::::res://scenes/ui/Camera.tscn<>uid://d1rdl5jf2uebd::::res://scenes/entities/Checkpoint.tscn<>uid://li8rbwa2xr7t::::res://scenes/entities/MovingPlatform_Medium.tscn<>uid://dg0jcix8krdtf::::res://assets/tilesets/level.png<>uid://cgqbkh28jf30y::::res://scenes/entities/MovingPlatform_Small.tscn
 ::res://scenes/ui/::1717576876
 Camera.tscn::PackedScene::4588854580582434578::1716811001::0::1::::<><>::res://scripts/ui/Camera.gd
 game_ui.tscn::PackedScene::4008275271953669607::1717574994::0::1::::<><>::res://scenes/ui/Stopwatch.tscn<>uid://bowu52884rge5::::res://assets/fonts/Roboto-Bold.ttf<>uid://g6p22ec3vsce::::res://assets/fonts/Roboto-Light.ttf<>res://scripts/ui/MessageText.gd<>res://scripts/ui/VersionLabel.gd<>uid://dmr0fcamx7t56::::res://addons/virtual_joystick/virtual_joystick_scene.tscn<>uid://m70hj7b8aepj::::res://assets/utils/joyring.png<>uid://0di5ksjxek1h::::res://assets/utils/joyknob.png<>uid://btocx73wqqmpt::::res://assets/utils/restart.png<>uid://bgiwmxikvcbfl::::res://assets/utils/menu.png

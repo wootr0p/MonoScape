@@ -1,5 +1,6 @@
 res://default_env.tres
 res://scenes/levels/Test.tscn
+res://scenes/ui/Game_UI.tscn
 res://scenes/entities/Checkpoint.tscn
 res://scenes/entities/End.tscn
 res://scenes/entities/Ghost.tscn
@@ -9,5 +10,3 @@ res://scenes/entities/MovingPlatform_Medium.tscn
 res://scenes/entities/MovingPlatform_Small.tscn
 res://scenes/GameManager.tscn
 res://addons/virtual_joystick/test/test.tscn
-res://scripts/entities/Player.gd
-res://scripts/GameManager.gd

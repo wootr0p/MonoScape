@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dfn25dt880hu3" path="res://scenes/entities/End.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bqynrqap1msjv" path="res://scenes/entities/Player.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://7m44sghiyj6x" path="res://scenes/entities/Ghost.tscn" id="4"]
-[ext_resource type="PackedScene" uid="uid://bxdvyctwsfo0v" path="res://scenes/ui/game_ui.tscn" id="4_82nb2"]
+[ext_resource type="PackedScene" uid="uid://bxdvyctwsfo0v" path="res://scenes/ui/Game_UI.tscn" id="4_82nb2"]
 [ext_resource type="PackedScene" uid="uid://duf4adr55vmin" path="res://scenes/entities/Coin.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://b6m408080ie0a" path="res://scenes/ui/Camera.tscn" id="6"]
 [ext_resource type="PackedScene" uid="uid://d1rdl5jf2uebd" path="res://scenes/entities/Checkpoint.tscn" id="8_sk83l"]
