@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/moving_platform_stop.wav-0b55a515845aecf99176cdfb28584229.sample"
+type="AudioStreamWAV"
+uid="uid://ksfpgndm3pic"
+path="res://.godot/imported/moving_platform_stop.wav-0b55a515845aecf99176cdfb28584229.sample"
 
 [deps]
 
 source_file="res://assets/sounds/moving_platform_stop.wav"
-dest_files=[ "res://.import/moving_platform_stop.wav-0b55a515845aecf99176cdfb28584229.sample" ]
+dest_files=["res://.godot/imported/moving_platform_stop.wav-0b55a515845aecf99176cdfb28584229.sample"]
 
 [params]
 

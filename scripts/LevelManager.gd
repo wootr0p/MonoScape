@@ -33,34 +33,34 @@ func respawn(force):
 		print("Respawn Player!")
 		
 		if force || level_clear || !is_instance_valid(current_checkpoint):
-			respawn_world();
+			handle_respawn_world();
 		else:
-			respawn_player();
+			handle_respawn_player();
 	
 
-func respawn_world():
+func handle_respawn_world():
 	level_clear = false;
 	current_checkpoint = null;
 	gravity = GRAVITY
 	gravity_sign = sign(gravity)
 	emit_signal("respawn_world");
 
-func respawn_player():
+func handle_respawn_player():
 	gravity = checkpoint_gravity
 	gravity_sign = sign(gravity)
 	emit_signal("respawn_player");
 
-func level_complete():
+func handle_level_complete():
 	print("LEVEL COMPLETE!")
 	level_clear = true
 	emit_signal("level_complete")
 
-func level_win():
+func handle_level_win():
 	# NUOVO RECORD
 	emit_signal("level_win")
 	GameManager.save_record_to_file(level_name, record_time)
 
-func slow_timer(amount):
+func handle_slow_timer(amount):
 	emit_signal("slow_timer", amount)
 
 func level_init(lvl_name):
@@ -71,7 +71,7 @@ func level_init(lvl_name):
 	level_clear = false
 	GameManager.load_record_from_file(level_name)
 	is_level_active = true;
-	respawn_world()
+	handle_respawn_world()
 
 func level_destroy():
 	is_level_active = false;

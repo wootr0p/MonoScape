@@ -1,14 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://dfn25dt880hu3"]
 
-[ext_resource path="res://scripts/entities/End.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://scripts/entities/End.gd" id="1"]
 
-[sub_resource type="RectangleShape2D" id=15]
-extents = Vector2( 19.5, 4 )
+[sub_resource type="RectangleShape2D" id="15"]
+size = Vector2(39, 8)
 
 [node name="End" type="Area2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 15 )
+shape = SubResource("15")
 
 [connection signal="body_entered" from="." to="." method="_on_End_body_entered"]

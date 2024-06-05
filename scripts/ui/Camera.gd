@@ -1,9 +1,9 @@
 extends Camera2D
 
-export (NodePath) var TargetNodepath = null
+@export var TargetNodepath : NodePath
 var target_node
-export (float) var lerpspeed = 0.1
-export (Vector2) var pos_offset = Vector2(30, 0)
+@export var lerpspeed : float = 0.1
+@export var pos_offset : Vector2 = Vector2(30, 0)
 
 func _ready():
 	target_node  = get_node(TargetNodepath)

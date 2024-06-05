@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/ui/Stopwatch.gd" type="Script" id=1]
 
 [node name="Stopwatch" type="Label"]
-margin_right = 40.0
-margin_bottom = 14.0
-rect_scale = Vector2( 3, 3 )
+offset_right = 40.0
+offset_bottom = 14.0
+scale = Vector2( 3, 3 )
 script = ExtResource( 1 )

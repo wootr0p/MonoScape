@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/moving_platform_move.wav-4669d3ba5cca4a674257d9344e6c04c8.sample"
+type="AudioStreamWAV"
+uid="uid://inst6kmctl2b"
+path="res://.godot/imported/moving_platform_move.wav-4669d3ba5cca4a674257d9344e6c04c8.sample"
 
 [deps]
 
 source_file="res://assets/sounds/moving_platform_move.wav"
-dest_files=[ "res://.import/moving_platform_move.wav-4669d3ba5cca4a674257d9344e6c04c8.sample" ]
+dest_files=["res://.godot/imported/moving_platform_move.wav-4669d3ba5cca4a674257d9344e6c04c8.sample"]
 
 [params]
 

@@ -1,9 +1,9 @@
-extends KinematicBody2D
+extends CharacterBody2D
 class_name Player
 
 const VEL_Y_MAX := 300
-const X_ACC := 1000
-const X_DEC := 1200
+const X_ACC := 1400
+const X_DEC := 1800
 const X_MAX_SPEED := 150
 const WALL_JUMP_SLIPPERY := 0.85
 const WALL_JUMP_MUL := 2
@@ -12,7 +12,7 @@ const DASH_SPEED := 500
 const SNAP_MUL := 0.2
 
 var is_player_alive = true
-var velocity = Vector2()
+#var velocity = Vector2()
 
 var coyote_time := false
 var wanna_jump := false
@@ -32,20 +32,20 @@ var snap
 var rng = RandomNumberGenerator.new()
 
 # Jump math: https://youtu.be/IOe1aGY6hXA?si=XO78Hvkm3UpO0b7t
-export var jump_height : float = 100;
-export var jump_time_to_peak : float = 0.5;
-export var jump_time_to_descent : float = 0.45;
-onready var jump_velocity : float = -400
+@export var jump_height : float = 100;
+@export var jump_time_to_peak : float = 0.5;
+@export var jump_time_to_descent : float = 0.45;
+@onready var jump_velocity : float = -400
 
 func _ready():
 	LevelManager.player_start_position = self.position;
 	
-	LevelManager.connect("respawn_world", self, "on_respawn_world")
-	LevelManager.connect("respawn_player", self, "on_respawn_player")
-	LevelManager.connect("gravity_flipped", self, "on_gravity_flipped")
+	LevelManager.connect("respawn_world", Callable(self, "on_respawn_world"))
+	LevelManager.connect("respawn_player", Callable(self, "on_respawn_player"))
+	LevelManager.connect("gravity_flipped", Callable(self, "on_gravity_flipped"))
 
 func _physics_process(delta):
-	snap = LevelManager.gravity_sign * Vector2.DOWN * SNAP_MUL if is_on_floor() else Vector2.ZERO;	
+	snap = LevelManager.gravity_sign * Vector2.DOWN * SNAP_MUL if my_is_on_floor() else Vector2.ZERO;	
 	
 	# GRAVITY
 	velocity.y += LevelManager.get_gravity(velocity) * delta;
@@ -76,8 +76,10 @@ func _physics_process(delta):
 	# APPLY VELOCITY
 	#print('snap ', snap, ' Vector: ', LevelManager.gravity_sign * Vector2.UP)
 	#print(velocity)
-	print('is_on_ceiling() ', is_on_ceiling())
-	move_and_slide(velocity, LevelManager.gravity_sign * Vector2.UP)
+	#print('my_is_on_ceiling() ', my_is_on_ceiling())
+	set_velocity(velocity)
+	set_up_direction(LevelManager.gravity_sign * Vector2.UP)
+	move_and_slide()
 	#move_and_slide_with_snap(velocity, snap, LevelManager.gravity_sign * Vector2.UP)
 	
 
@@ -85,30 +87,30 @@ func Dash(delta, x_direction, y_direction):
 	if Input.is_action_just_pressed("ui_cancel") && dash_avaiable:
 		# DASH
 		# di default la direzione è avanti
-		if is_on_floor():
+		if my_is_on_floor():
 			snap = Vector2.ZERO
 		if x_direction == 0 && y_direction == 0:
 			x_direction = 1
 		dash_direction = Vector2(x_direction, y_direction).normalized()
-		is_dash_on_air = !is_on_floor()
+		is_dash_on_air = !my_is_on_floor()
 		is_dashing = true
 		$Dash_Duration_Timer.start()
 		$DashSound.playing = true;
 		$Trail.is_active = true
 		dash_avaiable = false
-		$AnimatedSprite.play("Normal")
+		$AnimatedSprite2D.play("Normal")
 	
 	if is_dashing:
 		velocity = dash_direction * DASH_SPEED
 	
 	# il dash è disponibile se l'ho eseguito in aria, appena tocco terra
-	if is_dash_on_air && is_on_floor():
+	if is_dash_on_air && my_is_on_floor():
 		dash_avaiable = true;
-		$AnimatedSprite.play("Dash_Ready")
+		$AnimatedSprite2D.play("Dash_Ready")
 	# altrimenti se sono a terra ed è finito il timer di reload
-	elif is_on_floor() && !is_dashing && $DashReloadTimer.is_stopped():
+	elif my_is_on_floor() && !is_dashing && $DashReloadTimer.is_stopped():
 		dash_avaiable = true;
-		$AnimatedSprite.play("Dash_Ready")
+		$AnimatedSprite2D.play("Dash_Ready")
 
 func Jump(delta):
 	# SALTO A MURO
@@ -119,13 +121,13 @@ func Jump(delta):
 		$Jump_Buffer_Timer.start()
 	
 	# Coyote
-	if was_on_floor && !is_on_floor():
+	if was_on_floor && !my_is_on_floor():
 		coyote_time = true;
 		jump_avaiable = true;
 		$Coyote_Time_Timer.start()
-	was_on_floor = is_on_floor();
+	was_on_floor = my_is_on_floor();
 		
-	if is_on_floor():
+	if my_is_on_floor():
 		jump_avaiable = true;
 	
 	if jump_avaiable:
@@ -134,18 +136,18 @@ func Jump(delta):
 			velocity.y = LevelManager.gravity_sign * jump_velocity
 			play_jump_sound()
 			jump_avaiable = false;
-			jump_hold = true;
-			$Jump_Min_Hold_Time.start()
+			wanna_jump = false;
+			#jump_hold = true;
 			snap = Vector2.ZERO
 	
 	# CADO prima se rilascio il salto, ma non se sono a terra
-	if !is_on_floor():
+	if !my_is_on_floor():
 		if !jump_hold && !Input.is_action_pressed("ui_accept"):
 			#if !$Left_RayCast.is_colliding() && !$Right_RayCast.is_colliding():
 				velocity.y += LevelManager.get_gravity(velocity) * delta;
 	
 	# se tocco il soffitto cado immediatamente
-	#if is_on_ceiling():
+	#if my_is_on_ceiling():
 #		if LevelManager.gravity_sign * velocity.y < 0:
 #			velocity.y = 0;
 		#velocity.y += LevelManager.get_gravity(velocity) * delta;
@@ -153,7 +155,7 @@ func Jump(delta):
 	#print("ja:", jump_avaiable, " wj:" , wanna_jump, " coyote ", coyote_time, " ", $Left_RayCast.is_colliding(), $Right_RayCast.is_colliding());
 
 func WallJump(delta):
-	if !is_on_floor():
+	if !my_is_on_floor():
 		if is_on_left_wall():
 			if velocity.y * LevelManager.gravity_sign > 0:
 				velocity.y *= WALL_JUMP_SLIPPERY;
@@ -201,14 +203,14 @@ func is_on_left_wall():
 	else:
 		return $Right_RayCast1.is_colliding() || $Right_RayCast2.is_colliding() || $Right_RayCast3.is_colliding()
 
-func is_on_floor():
+func my_is_on_floor():
 	var g1 = $RaycastGround1.is_colliding()
 	var g2 = $RaycastGround2.is_colliding()
 	var g3 = $RaycastGround3.is_colliding()
 	#print("g1:", g1, " ", "g2:", g2, " ", "g3:", g3, " ")
 	return g1 || g2 || g3
 
-func is_on_ceiling():
+func my_is_on_ceiling():
 	var c1 = $RaycastCeiling1.is_colliding()
 	var c2 = $RaycastCeiling2.is_colliding()
 	var c3 = $RaycastCeiling3.is_colliding()
@@ -235,9 +237,6 @@ func _on_Coyote_Time_Timer_timeout():
 	coyote_time = false;
 	jump_avaiable = false;
 
-func _on_Jump_Min_Hold_Time_timeout():
-	jump_hold = false;
-
 func _on_DashReloadTimer_timeout():
 	$Trail.is_active = false
 
@@ -251,7 +250,7 @@ func die():
 	$ParticlesDeath.emitting = true
 	$DeathSound.playing = true;
 	$SlideSound.playing = false;
-	$AnimatedSprite.visible = false
+	$AnimatedSprite2D.visible = false
 	$Trail.is_active = false
 	LevelManager.respawn_player_delayed()
 
@@ -260,7 +259,7 @@ func respawn():
 	$ParticlesDeath.emitting = false
 	$DeathSound.playing = false;
 	$SlideSound.playing = false;
-	$AnimatedSprite.visible = true
+	$AnimatedSprite2D.visible = true
 	$Trail.is_active = false
 
 func on_respawn_world():
@@ -278,3 +277,8 @@ func on_gravity_flipped():
 		rotation_degrees = 180
 	else:
 		rotation_degrees = 0
+
+
+func _on_interaction_area_body_entered(body):
+	if body.is_in_group("Kill"):
+		die();

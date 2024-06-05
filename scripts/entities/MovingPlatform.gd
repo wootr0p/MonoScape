@@ -1,11 +1,11 @@
-extends KinematicBody2D
+extends AnimatableBody2D
 
-export var movement_direction: Vector2 = Vector2(1,0)
-export var movement_span: float = 4
-export var movement_speed: float = 1
-export var movement_switch_time: float = 2
+@export var movement_direction: Vector2 = Vector2(1,0)
+@export var movement_span: float = 4
+@export var movement_speed: float = 1
+@export var movement_switch_time: float = 2
 
-onready var ChangeDirectionTimer = $ChangeDirectionTimer
+@onready var ChangeDirectionTimer = $ChangeDirectionTimer
 
 var velocity = Vector2(0,0)
 var initial_position = Vector2(0,0)
@@ -17,7 +17,7 @@ var next_pos: Vector2
 var stop_sound_played : bool = true
 
 func _ready():
-	LevelManager.connect("respawn_world", self, "on_respawn_world")
+	LevelManager.connect("respawn_world", Callable(self, "on_respawn_world"))
 	movement_direction = movement_direction.normalized()
 	initial_position = self.position
 	ChangeDirectionTimer.wait_time = movement_switch_time;

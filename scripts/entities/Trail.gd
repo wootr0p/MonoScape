@@ -1,7 +1,7 @@
 extends Line2D
 
-export var length = 50
-export var is_active = false
+@export var length = 50
+@export var is_active = false
 var point = Vector2()
 
 

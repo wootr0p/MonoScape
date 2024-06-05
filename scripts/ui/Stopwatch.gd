@@ -4,9 +4,9 @@ var time : float
 var is_active : bool
 
 func _ready():
-	LevelManager.connect("respawn_world", self, "on_respawn_world")
-	LevelManager.connect("level_complete", self, "on_level_complete")
-	LevelManager.connect("slow_timer", self, "on_slow_timer")
+	LevelManager.connect("respawn_world", Callable(self, "on_respawn_world"))
+	LevelManager.connect("level_complete", Callable(self, "on_level_complete"))
+	LevelManager.connect("slow_timer", Callable(self, "on_slow_timer"))
 	
 	is_active = true
 	time = 0.0
@@ -33,5 +33,5 @@ func on_level_complete():
 	stop_timer()
 	if time < LevelManager.record_time:
 		LevelManager.record_time = time
-		LevelManager.level_win()
+		LevelManager.handle_level_win()
 

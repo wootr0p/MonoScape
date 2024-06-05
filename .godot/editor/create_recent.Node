@@ -1,0 +1,6 @@
+TouchScreenButton
+TileMap
+AnimatableBody2D
+Area2D
+CanvasLayer
+Camera2D

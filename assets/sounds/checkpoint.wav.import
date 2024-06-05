@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/checkpoint.wav-19674617c047adccc62be101549f95f5.sample"
+type="AudioStreamWAV"
+uid="uid://vu2j53jumuje"
+path="res://.godot/imported/checkpoint.wav-19674617c047adccc62be101549f95f5.sample"
 
 [deps]
 
 source_file="res://assets/sounds/checkpoint.wav"
-dest_files=[ "res://.import/checkpoint.wav-19674617c047adccc62be101549f95f5.sample" ]
+dest_files=["res://.godot/imported/checkpoint.wav-19674617c047adccc62be101549f95f5.sample"]
 
 [params]
 

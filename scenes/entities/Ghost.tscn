@@ -1,18 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://7m44sghiyj6x"]
 
-[ext_resource path="res://assets/sprites/ghost.png" type="Texture" id=1]
-[ext_resource path="res://scripts/entities/Ghost.gd" type="Script" id=2]
+[ext_resource type="Texture2D" uid="uid://b0mh1jx0sm7is" path="res://assets/sprites/ghost.png" id="1"]
+[ext_resource type="Script" path="res://scripts/entities/Ghost.gd" id="2"]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 1 ) ],
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
 [node name="Ghost" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("1")

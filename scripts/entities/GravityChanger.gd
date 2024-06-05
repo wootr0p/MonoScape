@@ -1,9 +1,9 @@
 extends Area2D
 
-export var gravity_restore : bool = false
+@export var gravity_restore : bool = false
 
 func _ready():
-	LevelManager.connect("respawn_world", self, "on_respawn_world")
+	LevelManager.connect("respawn_world", Callable(self, "on_respawn_world"))
 
 func _on_GravityChanger_body_entered(body):
 	if body is Player:

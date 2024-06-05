@@ -1,12 +1,12 @@
 extends Area2D
 class_name Checkpoint
 
-export var upside_down : bool = false
+@export var upside_down : bool = false
 
 var activated = false;
 
 func _ready():
-	LevelManager.connect("respawn_world", self, "on_respawn_world")
+	LevelManager.connect("respawn_world", Callable(self, "on_respawn_world"))
 
 func activate():
 	if !activated:

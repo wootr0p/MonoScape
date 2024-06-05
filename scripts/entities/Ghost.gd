@@ -10,10 +10,10 @@ var player
 func _ready():
 	player = get_tree().get_nodes_in_group("Player")[0]
 	ghost_positions_playback = load_from_file()
-	$AnimatedSprite.visible = (ghost_positions_playback.size() > 0)
+	$AnimatedSprite2D.visible = (ghost_positions_playback.size() > 0)
 	
-	LevelManager.connect("respawn_world", self, "on_respawn_world")
-	LevelManager.connect("level_win", self, "on_level_win")
+	LevelManager.connect("respawn_world", Callable(self, "on_respawn_world"))
+	LevelManager.connect("level_win", Callable(self, "on_level_win"))
 
 func step():
 	if playback_index < ghost_positions_playback.size():
@@ -30,7 +30,7 @@ func reset():
 		for element in ghost_positions_record:
 			ghost_positions_playback.append(element)
 	
-	$AnimatedSprite.visible = (ghost_positions_playback.size() > 0)
+	$AnimatedSprite2D.visible = (ghost_positions_playback.size() > 0)
 
 func save(pos):
 	ghost_positions.append(pos)
@@ -46,8 +46,7 @@ func new_record():
 	
 
 func save_to_file(array_to_save):
-	var file = File.new()
-	file.open(LevelManager.ghost_level_save_path, File.WRITE)
+	var file = FileAccess.open(LevelManager.ghost_level_save_path, FileAccess.WRITE)
 	
 	# Scrivi ogni elemento dell'array nel file
 	for vector in array_to_save:
@@ -58,9 +57,9 @@ func save_to_file(array_to_save):
 func load_from_file():
 	var array_loaded = []
 	
-	var file = File.new()
-	if file.file_exists(LevelManager.ghost_level_save_path):
-		file.open(LevelManager.ghost_level_save_path, File.READ)
+	var file;
+	if FileAccess.file_exists(LevelManager.ghost_level_save_path):
+		file = FileAccess.open(LevelManager.ghost_level_save_path, FileAccess.READ)
 		
 		while !file.eof_reached():
 			var line = file.get_line()

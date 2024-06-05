@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/gravity_changer.wav-0eb473f8d6b6f5ed070a1b8d5b1b938c.sample"
+type="AudioStreamWAV"
+uid="uid://dmwvql4qm7qik"
+path="res://.godot/imported/gravity_changer.wav-0eb473f8d6b6f5ed070a1b8d5b1b938c.sample"
 
 [deps]
 
 source_file="res://assets/sounds/gravity_changer.wav"
-dest_files=[ "res://.import/gravity_changer.wav-0eb473f8d6b6f5ed070a1b8d5b1b938c.sample" ]
+dest_files=["res://.godot/imported/gravity_changer.wav-0eb473f8d6b6f5ed070a1b8d5b1b938c.sample"]
 
 [params]
 
