@@ -2,7 +2,7 @@
 
 ### Gioca online:
 Il gioco è pubblicato a questo indirizzo (si consiglia di giocare da mobile, tenendo il dispositivo in orizzontale):
-https://wootr0p.github.io/prototypes/monoscape/
+https://wootr0p.github.io/monoscape/
 
 ### Apertura del sorgente:
 Questo progetto è stato creato con la versione 4.2.2 di Godot.
